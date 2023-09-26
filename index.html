@@ -7,33 +7,23 @@
   <link rel="stylesheet" href="assets/styles.css">
   <style>
     main {
-      position: absolute;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .container {
       display: flex;
       flex-direction: column;
+      justify-content: center;
+      align-items: center;
       gap: 10px;
     }
 
-    .text-box {
-      padding: 20px;
+    .kana {
+      padding: 64px 48px;
       border-radius: 100px;
+      font-size: 4em;
+      color: #666;
       transition: background-color 0.3s;
     }
 
-    .text-box:hover {
+    .kana:hover {
       background-color: #eee;
-    }
-
-    .kana {
-      color: #666;
-      font-size: 4em;
-      margin: 42px 12px;
     }
   </style>
 </head>
@@ -41,13 +31,9 @@
   <header>
     <h1 class="header">Kana Test</h1>
   </header>
-  <main class="container">
-    <a href="hiragana" class="text-box">
-      <p class="kana">ひらがな</p>
-    </a>
-    <a href="katakana" class="text-box">
-      <p class="kana">カタカナ</p>
-    </a>
+  <main>
+    <a href="hiragana" class="kana">ひらがな</a>
+    <a href="katakana" class="kana">カタカナ</a>
   </main>
 </body>
 </html>
