@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kana Test</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    main {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .text-box {
+      padding: 20px;
+      border-radius: 100px;
+      transition: background-color 0.3s;
+    }
+
+    .text-box:hover {
+      background-color: #eee;
+    }
+
+    .kana {
+      color: #666;
+      font-size: 4em;
+      margin: 42px 12px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 class="header">Kana Test</h1>
+  </header>
+  <main class="container">
+    <a href="hiragana" class="text-box">
+      <p class="kana">ひらがな</p>
+    </a>
+    <a href="katakana" class="text-box">
+      <p class="kana">カタカナ</p>
+    </a>
+  </main>
+</body>
+</html>
