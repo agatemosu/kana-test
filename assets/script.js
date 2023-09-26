@@ -14,7 +14,19 @@ const hiragana = [
     "わ",                   "を",
     "ん"
 ];
-
+const katakana = [
+    "ア", "イ", "ウ", "エ", "オ",
+    "カ", "キ", "ク", "ケ", "コ",
+    "サ", "シ", "ス", "セ", "ソ",
+    "タ", "チ", "ツ", "テ", "ト",
+    "ナ", "ニ", "ヌ", "ネ", "ノ",
+    "ハ", "ヒ", "フ", "ヘ", "ホ",
+    "マ", "ミ", "ム", "メ", "モ",
+    "ヤ",       "ユ",       "ヨ",
+    "ラ", "リ", "ル", "レ", "ロ",
+    "ワ",                   "ヲ",
+    "ン"
+];
 const romaji = [
     "a",  "i",   "u",   "e",  "o",
     "ka", "ki",  "ku",  "ke", "ko",
@@ -33,6 +45,15 @@ const sessionCounterElement = document.getElementById('session-counter');
 const totalCounterElement = document.getElementById('total-counter');
 const kanaCharacterElement = document.getElementById('kana-character');
 const optionsElement = document.getElementById('options');
+
+const syllabary = document.currentScript.getAttribute('syllabary');
+
+if (syllabary === 'hiragana') {
+    kana = hiragana;
+}
+if (syllabary === 'katakana') {
+    kana = katakana;
+}
 
 function updateCounters() {
     sessionCounterElement.textContent = sessionCounter;
@@ -64,8 +85,8 @@ function createOptionElement(option) {
 }
 
 function nextCharacter() {
-    const randomIndex = Math.floor(Math.random() * hiragana.length);
-    const randomCharacter = hiragana[randomIndex];
+    const randomIndex = Math.floor(Math.random() * kana.length);
+    const randomCharacter = kana[randomIndex];
     correctRomaji = romaji[randomIndex];
 
     optionsElement.innerHTML = '';

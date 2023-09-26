@@ -1,7 +1,8 @@
 # かなテスト (Kana test)
 
-## TODO
+## List
 
-- [ ] Katakana
+- [x] Hiragana
+- [x] Katakana
 - [ ] Dakuon
 - [ ] Combo
