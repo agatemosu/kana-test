@@ -9,9 +9,9 @@ const hiragana = [
     "な", "に", "ぬ", "ね", "の",
     "は", "ひ", "ふ", "へ", "ほ",
     "ま", "み", "む", "め", "も",
-    "や",       "ゆ",       "よ",
+    "や",      "ゆ",      "よ",
     "ら", "り", "る", "れ", "ろ",
-    "わ",                   "を",
+    "わ",                "を",
     "ん"
 ];
 const katakana = [
@@ -22,9 +22,9 @@ const katakana = [
     "ナ", "ニ", "ヌ", "ネ", "ノ",
     "ハ", "ヒ", "フ", "ヘ", "ホ",
     "マ", "ミ", "ム", "メ", "モ",
-    "ヤ",       "ユ",       "ヨ",
+    "ヤ",      "ユ",      "ヨ",
     "ラ", "リ", "ル", "レ", "ロ",
-    "ワ",                   "ヲ",
+    "ワ",                "ヲ",
     "ン"
 ];
 const romaji = [
@@ -46,7 +46,7 @@ const totalCounterElement = document.getElementById('total-counter');
 const kanaCharacterElement = document.getElementById('kana-character');
 const optionsElement = document.getElementById('options');
 
-const syllabary = document.currentScript.getAttribute('syllabary');
+const syllabary = document.currentScript.getAttribute('data-syllabary');
 
 if (syllabary === 'hiragana') {
     kana = hiragana;
