@@ -4,5 +4,5 @@
 
 - [x] Hiragana
 - [x] Katakana
-- [ ] Dakuon
-- [ ] Combo
+- [/] Dakuon
+- [/] Combo
