@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Katakana Test</title>
     <link rel="stylesheet" href="styles.css" />
+    <script src="js/script.js" type="module" data-syllabary="katakana"></script>
   </head>
   <body>
     <header>
@@ -12,17 +13,30 @@
       <h1 class="header main">Katakana</h1>
     </header>
     <main>
-      <div id="scores">
-        <span class="counter">Session counter</span
-        ><span id="session-counter" class="count">-</span>
-        <span class="counter">Total counter</span
-        ><span id="total-counter" class="count">-</span>
-      </div>
-      <div id="kana-container">
+      <section>
+        <div>
+          <input type="checkbox" id="combo-checkbox" />
+          <label for="combo-checkbox">Combo</label>
+        </div>
+        <div>
+          <input type="checkbox" id="dakuon-checkbox" />
+          <label for="dakuon-checkbox">Dakuon</label>
+        </div>
+        <div>
+          <input type="checkbox" id="standard-checkbox" checked />
+          <label for="standard-checkbox">Standard</label>
+        </div>
+      </section>
+      <section id="scores">
+        <span class="counter">Session counter</span>
+        <span id="session-counter" class="count">-</span>
+        <span class="counter">Total counter</span>
+        <span id="total-counter" class="count">-</span>
+      </section>
+      <section id="kana-container">
         <div id="kana-character"></div>
         <div id="options"></div>
-      </div>
+      </section>
     </main>
-    <script src="js/script.js" type="module" data-syllabary="katakana"></script>
   </body>
 </html>

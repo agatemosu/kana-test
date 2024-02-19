@@ -1,4 +1,4 @@
-export const hiragana = [
+export const standardHiragana = [
   "あ", "い", "う", "え", "お",
   "か", "き", "く", "け", "こ",
   "さ", "し", "す", "せ", "そ",
@@ -11,7 +11,7 @@ export const hiragana = [
   "わ",                "を",
   "ん",
 ];
-export const katakana = [
+export const standardKatakana = [
   "ア", "イ", "ウ", "エ", "オ",
   "カ", "キ", "ク", "ケ", "コ",
   "サ", "シ", "ス", "セ", "ソ",
@@ -24,7 +24,7 @@ export const katakana = [
   "ワ",                "ヲ",
   "ン",
 ];
-export const romaji = [
+export const standardRomaji = [
   "a",  "i",   "u",   "e",  "o",
   "ka", "ki",  "ku",  "ke", "ko",
   "sa", "shi", "su",  "se", "so",

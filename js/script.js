@@ -1,4 +1,14 @@
-import { hiragana, katakana, romaji } from "./kana.js";
+import {
+  standardHiragana,
+  standardKatakana,
+  standardRomaji,
+  dakuonHiragana,
+  dakuonKatakana,
+  dakuonRomaji,
+  comboHiragana,
+  comboKatakana,
+  comboRomaji,
+} from "./kana.js";
 
 let sessionCounter = 0;
 let totalCounter = localStorage.getItem("totalCounter") || 0;
@@ -12,23 +22,66 @@ const syllabary = document
   .querySelector("[data-syllabary]")
   .getAttribute("data-syllabary");
 
-if (syllabary === "hiragana") var kana = hiragana;
-if (syllabary === "katakana") var kana = katakana;
+const standardCheckbox = document.getElementById("standard-checkbox");
+const dakuonCheckbox = document.getElementById("dakuon-checkbox");
+const comboCheckbox = document.getElementById("combo-checkbox");
+
+let enableStandard = true;
+let enableDakuon = false;
+let enableCombo = false;
+
+standardCheckbox.addEventListener("change", toggleStandard);
+dakuonCheckbox.addEventListener("change", toggleDakuon);
+comboCheckbox.addEventListener("change", toggleCombo);
+
+function toggleStandard() {
+  enableStandard = standardCheckbox.checked;
+  nextCharacter();
+}
+
+function toggleDakuon() {
+  enableDakuon = dakuonCheckbox.checked;
+  nextCharacter();
+}
+
+function toggleCombo() {
+  enableCombo = comboCheckbox.checked;
+  nextCharacter();
+}
+
+function getKanaArray() {
+  let selectedKana = [];
+  if (syllabary === "hiragana") {
+    if (enableCombo) selectedKana = selectedKana.concat(comboHiragana);
+    if (enableDakuon) selectedKana = selectedKana.concat(dakuonHiragana);
+    if (enableStandard || selectedKana.length === 0) {
+      selectedKana = selectedKana.concat(standardHiragana);
+    }
+  } else if (syllabary === "katakana") {
+    if (enableCombo) selectedKana = selectedKana.concat(comboKatakana);
+    if (enableDakuon) selectedKana = selectedKana.concat(dakuonKatakana);
+    if (enableStandard || selectedKana.length === 0) {
+      selectedKana = selectedKana.concat(standardKatakana);
+    }
+  }
+  return selectedKana;
+}
 
 function updateCounters() {
   sessionCounterElement.textContent = sessionCounter;
   totalCounterElement.textContent = totalCounter;
 }
 
-function handleAnswer(isCorrect, optionElement, correctRomaji) {
+function handleAnswer(selectedOption, optionElement, correctRomaji) {
   if (!optionElement.classList.contains("incorrect")) {
-    if (isCorrect === correctRomaji) {
+    if (selectedOption === correctRomaji) {
       sessionCounter++;
       totalCounter++;
 
       localStorage.setItem("totalCounter", totalCounter);
       updateCounters();
 
+      // Maybe add a transition?
       setTimeout(nextCharacter, 0);
     } else {
       optionElement.classList.add("incorrect");
@@ -47,16 +100,26 @@ function createOptionElement(option, correctRomaji) {
 }
 
 function nextCharacter() {
-  const randomIndex = Math.floor(Math.random() * kana.length);
-  const randomCharacter = kana[randomIndex];
-  const correctRomaji = romaji[randomIndex];
+  let romajiArray = [];
+  if (enableCombo) romajiArray = romajiArray.concat(comboRomaji);
+  if (enableDakuon) romajiArray = romajiArray.concat(dakuonRomaji);
+  if (enableStandard || romajiArray.length === 0) {
+    romajiArray = romajiArray.concat(standardRomaji);
+  }
+
+  const kanaArray = getKanaArray();
+  const charIndex = Math.floor(Math.random() * kanaArray.length);
+  const randomCharacter = kanaArray[charIndex];
+  const correctRomaji = romajiArray[charIndex];
 
   optionsElement.innerHTML = "";
 
   const incorrectAnswers = [];
   while (incorrectAnswers.length < 9) {
-    const randomIncorrectIndex = Math.floor(Math.random() * romaji.length);
-    const randomIncorrectRomaji = romaji[randomIncorrectIndex];
+    const randomIncorrectIndex = Math.floor(
+      Math.random() * standardRomaji.length
+    );
+    const randomIncorrectRomaji = standardRomaji[randomIncorrectIndex];
 
     if (
       randomIncorrectRomaji !== correctRomaji &&
