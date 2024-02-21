@@ -105,12 +105,13 @@ header {
   top: 50%;
   right: 0;
   transform: translateY(-50%);
-  padding: 20px;
+  padding: 10px;
   background-color: #222;
   display: grid;
   gap: 10px;
+  color: #ffd43b;
 
-  > div {
-    color: #ddd;
+  &#arrow {
+    cursor: pointer;
   }
 }
