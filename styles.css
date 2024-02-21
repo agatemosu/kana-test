@@ -44,7 +44,7 @@ header {
 }
 
 /* Counters */
-#scores {
+.scores {
   margin-top: 1%;
   position: absolute;
   display: grid;
@@ -59,7 +59,7 @@ header {
 }
 
 /* Options */
-#kana-container {
+.kana-container {
   height: calc(100vh - 120px);
   display: flex;
   flex-direction: column;
