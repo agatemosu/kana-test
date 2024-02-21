@@ -9,10 +9,16 @@
   </head>
   <body>
     <header>
-      <h1 class="header"><a href="index">Kana Test</a></h1>
-      <h1 class="header main">Hiragana</h1>
+      <h1><a href="index">Kana Test</a></h1>
+      <h1 class="main">Hiragana</h1>
     </header>
     <main>
+      <section class="scores">
+        <span class="counter">Session counter</span>
+        <span id="session-counter" class="count">-</span>
+        <span class="counter">Total counter</span>
+        <span id="total-counter" class="count">-</span>
+      </section>
       <section class="checkboxes">
         <div>
           <input type="checkbox" id="combo-checkbox" />
@@ -26,12 +32,6 @@
           <input type="checkbox" id="standard-checkbox" checked />
           <label for="standard-checkbox">Standard</label>
         </div>
-      </section>
-      <section class="scores">
-        <span class="counter">Session counter</span>
-        <span id="session-counter" class="count">-</span>
-        <span class="counter">Total counter</span>
-        <span id="total-counter" class="count">-</span>
       </section>
       <section class="kana-container">
         <div id="kana-character"></div>
