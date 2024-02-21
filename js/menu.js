@@ -2,7 +2,10 @@ const menu = document.getElementById("menu");
 const arrow = document.getElementById("arrow");
 
 document.addEventListener("click", function (event) {
-  if (!arrow.contains(event.target)) {
+  const isClickInsideMenu =
+    menu.contains(event.target) || arrow.contains(event.target);
+
+  if (!isClickInsideMenu) {
     menu.style.display = "none";
   }
 });

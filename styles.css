@@ -87,16 +87,16 @@ header {
   border: 1px solid #ccc;
   border-radius: 5px;
   transition: all 0.3s ease;
-}
 
-.option:hover {
-  background-color: #3498db;
-  color: white;
-}
+  &:hover {
+    background-color: #3498db;
+    color: white;
+  }
 
-.incorrect {
-  background-color: #c35;
-  color: white;
+  &.incorrect {
+    background-color: #c35;
+    color: white;
+  }
 }
 
 /* Checkboxes */
