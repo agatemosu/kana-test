@@ -31,24 +31,18 @@ let enableStandard = true;
 let enableDakuon = false;
 let enableCombo = false;
 
-standardCheckbox.addEventListener("change", toggleStandard);
-dakuonCheckbox.addEventListener("change", toggleDakuon);
-comboCheckbox.addEventListener("change", toggleCombo);
-
-function toggleStandard() {
+standardCheckbox.addEventListener("change", () => {
   enableStandard = standardCheckbox.checked;
   nextCharacter();
-}
-
-function toggleDakuon() {
+});
+dakuonCheckbox.addEventListener("change", () => {
   enableDakuon = dakuonCheckbox.checked;
   nextCharacter();
-}
-
-function toggleCombo() {
+});
+comboCheckbox.addEventListener("change", () => {
   enableCombo = comboCheckbox.checked;
   nextCharacter();
-}
+});
 
 function getKanaArray() {
   let selectedKana = [];
