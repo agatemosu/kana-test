@@ -44,26 +44,19 @@ function toggleOption(option) {
 
 function getKanaArray() {
   let selectedKana = [];
-  if (syllabary === "hiragana") {
-    if (enabledOptions & COMBO) {
-      selectedKana.push(...comboHiragana);
-    }
-    if (enabledOptions & DAKUON) {
-      selectedKana.push(...dakuonHiragana);
-    }
-    if (enabledOptions & STANDARD || selectedKana.length === 0) {
-      selectedKana.push(...standardHiragana);
-    }
-  } else if (syllabary === "katakana") {
-    if (enabledOptions & COMBO) {
-      selectedKana.push(...comboKatakana);
-    }
-    if (enabledOptions & DAKUON) {
-      selectedKana.push(...dakuonKatakana);
-    }
-    if (enabledOptions & STANDARD || selectedKana.length === 0) {
-      selectedKana.push(...standardKatakana);
-    }
+  switch (syllabary) {
+    case "hiragana":
+      if (enabledOptions & COMBO) selectedKana.push(...comboHiragana);
+      if (enabledOptions & DAKUON) selectedKana.push(...dakuonHiragana);
+      if (enabledOptions & STANDARD) selectedKana.push(...standardHiragana);
+      if (selectedKana.length === 0) selectedKana.push(...standardHiragana);
+      break;
+    case "katakana":
+      if (enabledOptions & COMBO) selectedKana.push(...comboKatakana);
+      if (enabledOptions & DAKUON) selectedKana.push(...dakuonKatakana);
+      if (enabledOptions & STANDARD) selectedKana.push(...standardKatakana);
+      if (selectedKana.length === 0) selectedKana.push(...standardKatakana);
+      break;
   }
   return selectedKana;
 }
