@@ -110,7 +110,9 @@ function nextCharacter() {
 
   const kanaArray = getKanaArray();
   let charIndex = Math.floor(Math.random() * kanaArray.length);
-  while (charIndex === previousIndex) charIndex = Math.floor(Math.random() * kanaArray.length);
+  while (charIndex === previousIndex) {
+    charIndex = Math.floor(Math.random() * kanaArray.length);
+  }
   previousIndex = charIndex;
   const randomCharacter = kanaArray[charIndex];
   const correctRomaji = romajiArray[charIndex];
@@ -120,7 +122,7 @@ function nextCharacter() {
   const incorrectAnswers = [];
   while (incorrectAnswers.length < 9) {
     const randomIncorrectIndex = Math.floor(
-      Math.random() * standardRomaji.length
+      Math.random() * standardRomaji.length,
     );
     const randomIncorrectRomaji = standardRomaji[randomIncorrectIndex];
 
