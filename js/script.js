@@ -11,8 +11,9 @@ import {
 } from "./kana.js";
 
 let sessionCounter = 0;
-let totalCounter = localStorage.getItem("totalCounter") || 0;
+let totalCounter = parseInt(localStorage.getItem("totalCounter")) || 0;
 let previousIndex = -1;
+let enabledOptions = 1;
 
 const sessionCounterElement = document.getElementById("session-counter");
 const totalCounterElement = document.getElementById("total-counter");
@@ -23,15 +24,13 @@ const syllabary = document
   .querySelector("[data-syllabary]")
   .getAttribute("data-syllabary");
 
+const STANDARD = 0b001;
+const DAKUON = 0b010;
+const COMBO = 0b100;
+
 const standardCheckbox = document.getElementById("standard-checkbox");
 const dakuonCheckbox = document.getElementById("dakuon-checkbox");
 const comboCheckbox = document.getElementById("combo-checkbox");
-
-let enabledOptions = 1; // 1 (binary 001) means only standard is enabled
-
-const STANDARD = 1; // binary 001
-const DAKUON = 2; // binary 010
-const COMBO = 4; // binary 100
 
 standardCheckbox.addEventListener("change", () => toggleOption(STANDARD));
 dakuonCheckbox.addEventListener("change", () => toggleOption(DAKUON));
