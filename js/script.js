@@ -121,10 +121,8 @@ function nextCharacter() {
 
   const incorrectAnswers = [];
   while (incorrectAnswers.length < 9) {
-    const randomIncorrectIndex = Math.floor(
-      Math.random() * standardRomaji.length,
-    );
-    const randomIncorrectRomaji = standardRomaji[randomIncorrectIndex];
+    const randomIncorrectIndex = Math.floor(Math.random() * romajiArray.length);
+    const randomIncorrectRomaji = romajiArray[randomIncorrectIndex];
 
     if (
       randomIncorrectRomaji !== correctRomaji &&
