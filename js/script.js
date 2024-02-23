@@ -46,23 +46,23 @@ function getKanaArray() {
   let selectedKana = [];
   if (syllabary === "hiragana") {
     if (enabledOptions & COMBO) {
-      selectedKana = selectedKana.concat(comboHiragana);
+      selectedKana.push(...comboHiragana);
     }
     if (enabledOptions & DAKUON) {
-      selectedKana = selectedKana.concat(dakuonHiragana);
+      selectedKana.push(...dakuonHiragana);
     }
     if (enabledOptions & STANDARD || selectedKana.length === 0) {
-      selectedKana = selectedKana.concat(standardHiragana);
+      selectedKana.push(...standardHiragana);
     }
   } else if (syllabary === "katakana") {
     if (enabledOptions & COMBO) {
-      selectedKana = selectedKana.concat(comboKatakana);
+      selectedKana.push(...comboKatakana);
     }
     if (enabledOptions & DAKUON) {
-      selectedKana = selectedKana.concat(dakuonKatakana);
+      selectedKana.push(...dakuonKatakana);
     }
     if (enabledOptions & STANDARD || selectedKana.length === 0) {
-      selectedKana = selectedKana.concat(standardKatakana);
+      selectedKana.push(...standardKatakana);
     }
   }
   return selectedKana;
@@ -177,7 +177,7 @@ function handleOption(
   charIndex,
   correctAnswerCategory
 ) {
-  romajiArray = romajiArray.concat(optionArray);
+  romajiArray.push(...optionArray);
   if (charIndex < romajiArray.length) {
     correctAnswerCategory = optionType;
   }
