@@ -38,13 +38,8 @@ dakuonCheckbox.addEventListener("change", () => toggleOption(DAKUON));
 comboCheckbox.addEventListener("change", () => toggleOption(COMBO));
 
 function toggleOption(option) {
-  if (enabledOptions & option) {
-    // if option is enabled, disable it
-    enabledOptions ^= option;
-  } else {
-    // if option is disabled, enable it
-    enabledOptions |= option;
-  }
+  // Toggle the option
+  enabledOptions ^= option;
   nextCharacter();
 }
 
