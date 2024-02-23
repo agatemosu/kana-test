@@ -108,37 +108,42 @@ function createOptionElement(option, correctRomaji) {
 
 function nextCharacter() {
   const kanaArray = getKanaArray();
-  let charIndex = Math.floor(Math.random() * kanaArray.length);
-  while (charIndex === previousIndex) {
-    charIndex = Math.floor(Math.random() * kanaArray.length);
-  }
-  previousIndex = charIndex;
-
-  let romajiArray = [];
+  const charIndex = getRandomCharIndex(kanaArray.length);
   let correctAnswerCategory;
 
+  let romajiArray = [];
+
   if (enabledOptions & COMBO) {
-    romajiArray = romajiArray.concat(comboRomaji);
-    if (charIndex < romajiArray.length) {
-      correctAnswerCategory = COMBO;
-    }
+    [romajiArray, correctAnswerCategory] = handleOption(
+      COMBO,
+      comboRomaji,
+      romajiArray,
+      charIndex,
+      correctAnswerCategory
+    );
   }
 
   if (enabledOptions & DAKUON && correctAnswerCategory === undefined) {
-    romajiArray = romajiArray.concat(dakuonRomaji);
-    if (charIndex < romajiArray.length) {
-      correctAnswerCategory = DAKUON;
-    }
+    [romajiArray, correctAnswerCategory] = handleOption(
+      DAKUON,
+      dakuonRomaji,
+      romajiArray,
+      charIndex,
+      correctAnswerCategory
+    );
   }
 
   if (
     (enabledOptions & STANDARD || romajiArray.length === 0) &&
     correctAnswerCategory === undefined
   ) {
-    romajiArray = romajiArray.concat(standardRomaji);
-    if (charIndex < romajiArray.length) {
-      correctAnswerCategory = STANDARD;
-    }
+    [romajiArray, correctAnswerCategory] = handleOption(
+      STANDARD,
+      standardRomaji,
+      romajiArray,
+      charIndex,
+      correctAnswerCategory
+    );
   }
 
   const randomCharacter = kanaArray[charIndex];
@@ -146,22 +151,48 @@ function nextCharacter() {
 
   optionsElement.innerHTML = "";
 
-  const incorrectAnswers = [];
-  let categoryRomaji;
+  const incorrectAnswers = generateIncorrectAnswers(
+    correctRomaji,
+    correctAnswerCategory
+  );
 
-  switch (correctAnswerCategory) {
-    case STANDARD:
-      categoryRomaji = standardRomaji;
-      break;
-    case DAKUON:
-      categoryRomaji = dakuonRomaji;
-      break;
-    case COMBO:
-      categoryRomaji = comboRomaji;
-      break;
-    default:
-      categoryRomaji = standardRomaji;
+  const romajiOptions = [correctRomaji, ...incorrectAnswers];
+  romajiOptions.sort(() => Math.random() - 0.5);
+
+  kanaCharacterElement.textContent = randomCharacter;
+
+  romajiOptions.forEach((option) => {
+    const optionElement = createOptionElement(option, correctRomaji);
+    optionsElement.appendChild(optionElement);
+  });
+}
+
+function getRandomCharIndex(maxLength) {
+  let charIndex = Math.floor(Math.random() * maxLength);
+  while (charIndex === previousIndex) {
+    charIndex = Math.floor(Math.random() * maxLength);
   }
+  previousIndex = charIndex;
+  return charIndex;
+}
+
+function handleOption(
+  optionType,
+  optionArray,
+  romajiArray,
+  charIndex,
+  correctAnswerCategory
+) {
+  romajiArray = romajiArray.concat(optionArray);
+  if (charIndex < romajiArray.length) {
+    correctAnswerCategory = optionType;
+  }
+  return [romajiArray, correctAnswerCategory];
+}
+
+function generateIncorrectAnswers(correctRomaji, correctAnswerCategory) {
+  const categoryRomaji = getCategoryRomaji(correctAnswerCategory);
+  const incorrectAnswers = [];
 
   while (incorrectAnswers.length < 9) {
     const randomIncorrectIndex = Math.floor(
@@ -177,15 +208,20 @@ function nextCharacter() {
     }
   }
 
-  const romajiOptions = [correctRomaji, ...incorrectAnswers];
-  romajiOptions.sort(() => Math.random() - 0.5);
+  return incorrectAnswers;
+}
 
-  kanaCharacterElement.textContent = randomCharacter;
-
-  romajiOptions.forEach((option) => {
-    const optionElement = createOptionElement(option, correctRomaji);
-    optionsElement.appendChild(optionElement);
-  });
+function getCategoryRomaji(correctAnswerCategory) {
+  switch (correctAnswerCategory) {
+    case STANDARD:
+      return standardRomaji;
+    case DAKUON:
+      return dakuonRomaji;
+    case COMBO:
+      return comboRomaji;
+    default:
+      return standardRomaji;
+  }
 }
 
 updateCounters();
