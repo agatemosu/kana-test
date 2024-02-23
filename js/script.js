@@ -27,35 +27,39 @@ const standardCheckbox = document.getElementById("standard-checkbox");
 const dakuonCheckbox = document.getElementById("dakuon-checkbox");
 const comboCheckbox = document.getElementById("combo-checkbox");
 
-let enableStandard = true;
-let enableDakuon = false;
-let enableCombo = false;
+let enabledOptions = 1; // 1 (binary 001) means only standard is enabled
 
-standardCheckbox.addEventListener("change", () => {
-  enableStandard = standardCheckbox.checked;
+const OPTION_STANDARD = 1; // binary 001
+const OPTION_DAKUON = 2; // binary 010
+const OPTION_COMBO = 4; // binary 100
+
+standardCheckbox.addEventListener("change", () => toggleOption(OPTION_STANDARD));
+dakuonCheckbox.addEventListener("change", () => toggleOption(OPTION_DAKUON));
+comboCheckbox.addEventListener("change", () => toggleOption(OPTION_COMBO));
+
+function toggleOption(option) {
+  if (enabledOptions & option) {
+    // if option is enabled, disable it
+    enabledOptions &= ~option;
+  } else {
+    // if option is disabled, enable it
+    enabledOptions |= option;
+  }
   nextCharacter();
-});
-dakuonCheckbox.addEventListener("change", () => {
-  enableDakuon = dakuonCheckbox.checked;
-  nextCharacter();
-});
-comboCheckbox.addEventListener("change", () => {
-  enableCombo = comboCheckbox.checked;
-  nextCharacter();
-});
+}
 
 function getKanaArray() {
   let selectedKana = [];
   if (syllabary === "hiragana") {
-    if (enableCombo) selectedKana = selectedKana.concat(comboHiragana);
-    if (enableDakuon) selectedKana = selectedKana.concat(dakuonHiragana);
-    if (enableStandard || selectedKana.length === 0) {
+    if (enabledOptions & OPTION_COMBO) selectedKana = selectedKana.concat(comboHiragana);
+    if (enabledOptions & OPTION_DAKUON) selectedKana = selectedKana.concat(dakuonHiragana);
+    if ((enabledOptions & OPTION_STANDARD) || selectedKana.length === 0) {
       selectedKana = selectedKana.concat(standardHiragana);
     }
   } else if (syllabary === "katakana") {
-    if (enableCombo) selectedKana = selectedKana.concat(comboKatakana);
-    if (enableDakuon) selectedKana = selectedKana.concat(dakuonKatakana);
-    if (enableStandard || selectedKana.length === 0) {
+    if (enabledOptions & OPTION_COMBO) selectedKana = selectedKana.concat(comboKatakana);
+    if (enabledOptions & OPTION_DAKUON) selectedKana = selectedKana.concat(dakuonKatakana);
+    if ((enabledOptions & OPTION_STANDARD) || selectedKana.length === 0) {
       selectedKana = selectedKana.concat(standardKatakana);
     }
   }
@@ -95,28 +99,64 @@ function createOptionElement(option, correctRomaji) {
 }
 
 function nextCharacter() {
-  let romajiArray = [];
-  if (enableCombo) romajiArray = romajiArray.concat(comboRomaji);
-  if (enableDakuon) romajiArray = romajiArray.concat(dakuonRomaji);
-  if (enableStandard || romajiArray.length === 0) {
-    romajiArray = romajiArray.concat(standardRomaji);
-  }
-
   const kanaArray = getKanaArray();
   let charIndex = Math.floor(Math.random() * kanaArray.length);
   while (charIndex === previousIndex) {
     charIndex = Math.floor(Math.random() * kanaArray.length);
   }
   previousIndex = charIndex;
+
+  let romajiArray = [];
+  let correctAnswerCategory;
+
+  if (enabledOptions & OPTION_COMBO) {
+    romajiArray = romajiArray.concat(comboRomaji);
+    if (charIndex < romajiArray.length) {
+      correctAnswerCategory = OPTION_COMBO;
+    }
+  }
+
+  if (enabledOptions & OPTION_DAKUON && correctAnswerCategory === undefined) {
+    romajiArray = romajiArray.concat(dakuonRomaji);
+    if (charIndex < romajiArray.length) {
+      correctAnswerCategory = OPTION_DAKUON;
+    }
+  }
+
+  if ((enabledOptions & OPTION_STANDARD || romajiArray.length === 0) && correctAnswerCategory === undefined) {
+    romajiArray = romajiArray.concat(standardRomaji);
+    if (charIndex < romajiArray.length) {
+      correctAnswerCategory = OPTION_STANDARD;
+    }
+  }
+
   const randomCharacter = kanaArray[charIndex];
   const correctRomaji = romajiArray[charIndex];
 
   optionsElement.innerHTML = "";
 
   const incorrectAnswers = [];
-  while (incorrectAnswers.length < 9) {
-    const randomIncorrectIndex = Math.floor(Math.random() * romajiArray.length);
-    const randomIncorrectRomaji = romajiArray[randomIncorrectIndex];
+  let categoryRomaji;
+
+  switch(correctAnswerCategory) {
+    case OPTION_STANDARD:
+      categoryRomaji = standardRomaji;
+      break;
+    case OPTION_DAKUON:
+      categoryRomaji = dakuonRomaji;
+      break;
+    case OPTION_COMBO:
+      categoryRomaji = comboRomaji;
+      break;
+    default:
+      categoryRomaji = standardRomaji;
+  }
+
+while (incorrectAnswers.length < 9) {
+  const randomIncorrectIndex = Math.floor(
+    Math.random() * categoryRomaji.length,
+  );
+  const randomIncorrectRomaji = categoryRomaji[randomIncorrectIndex];
 
     if (
       randomIncorrectRomaji !== correctRomaji &&
