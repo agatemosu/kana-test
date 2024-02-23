@@ -24,9 +24,9 @@ const syllabary = document
   .querySelector("[data-syllabary]")
   .getAttribute("data-syllabary");
 
-const STANDARD = 0b001;
-const DAKUON = 0b010;
-const COMBO = 0b100;
+const STANDARD = 1;
+const DAKUON = 2;
+const COMBO = 4;
 
 const standardCheckbox = document.getElementById("standard-checkbox");
 const dakuonCheckbox = document.getElementById("dakuon-checkbox");
