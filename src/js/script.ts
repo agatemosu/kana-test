@@ -8,7 +8,7 @@ import {
   comboHiragana,
   comboKatakana,
   comboRomaji,
-} from "./kana.js";
+} from "./kana.ts";
 
 let sessionCounter = 0;
 let totalCounter = parseInt(localStorage.getItem("totalCounter")) || 0;
