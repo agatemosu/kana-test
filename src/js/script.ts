@@ -8,10 +8,10 @@ import {
   comboHiragana,
   comboKatakana,
   comboRomaji,
-} from "./kana.ts";
+} from "./kana";
 
 let sessionCounter = 0;
-let totalCounter = parseInt(localStorage.getItem("totalCounter")) || 0;
+let totalCounter = parseInt(localStorage.getItem("totalCounter") || "0");
 let previousIndex = -1;
 let enabledOptions = 1;
 
@@ -21,7 +21,7 @@ const kanaCharacterElement = document.getElementById("kana-character");
 const optionsElement = document.getElementById("options");
 
 const syllabary = document
-  .querySelector("[data-syllabary]")
+  .querySelector("[data-syllabary]")!
   .getAttribute("data-syllabary");
 
 const STANDARD = 1;
@@ -32,18 +32,18 @@ const standardCheckbox = document.getElementById("standard-checkbox");
 const dakuonCheckbox = document.getElementById("dakuon-checkbox");
 const comboCheckbox = document.getElementById("combo-checkbox");
 
-standardCheckbox.addEventListener("change", () => toggleOption(STANDARD));
-dakuonCheckbox.addEventListener("change", () => toggleOption(DAKUON));
-comboCheckbox.addEventListener("change", () => toggleOption(COMBO));
+standardCheckbox?.addEventListener("change", () => toggleOption(STANDARD));
+dakuonCheckbox?.addEventListener("change", () => toggleOption(DAKUON));
+comboCheckbox?.addEventListener("change", () => toggleOption(COMBO));
 
-function toggleOption(option) {
+function toggleOption(option: number) {
   // Toggle the option
   enabledOptions ^= option;
   nextCharacter();
 }
 
 function getKanaArray() {
-  let selectedKana = [];
+  let selectedKana: string[] = [];
   switch (syllabary) {
     case "hiragana":
       if (enabledOptions & COMBO) selectedKana.push(...comboHiragana);
@@ -62,17 +62,21 @@ function getKanaArray() {
 }
 
 function updateCounters() {
-  sessionCounterElement.textContent = sessionCounter;
-  totalCounterElement.textContent = totalCounter;
+  sessionCounterElement!.textContent = sessionCounter.toString();
+  totalCounterElement!.textContent = totalCounter.toString();
 }
 
-function handleAnswer(selectedOption, optionElement, correctRomaji) {
+function handleAnswer(
+  selectedOption: string,
+  optionElement: HTMLElement,
+  correctRomaji: string
+) {
   if (!optionElement.classList.contains("incorrect")) {
     if (selectedOption === correctRomaji) {
       sessionCounter++;
       totalCounter++;
 
-      localStorage.setItem("totalCounter", totalCounter);
+      localStorage.setItem("totalCounter", totalCounter.toString());
       updateCounters();
 
       // Maybe add a transition?
@@ -83,7 +87,7 @@ function handleAnswer(selectedOption, optionElement, correctRomaji) {
   }
 }
 
-function createOptionElement(option, correctRomaji) {
+function createOptionElement(option: string, correctRomaji: string) {
   const optionElement = document.createElement("div");
   optionElement.classList.add("option");
   optionElement.textContent = option;
@@ -96,47 +100,44 @@ function createOptionElement(option, correctRomaji) {
 function nextCharacter() {
   const kanaArray = getKanaArray();
   const charIndex = getRandomCharIndex(kanaArray.length);
-  let correctAnswerCategory;
+  let correctAnswerCategory = 0;
 
-  let romajiArray = [];
+  let romajiArray: string[] = [];
 
   if (enabledOptions & COMBO) {
     [romajiArray, correctAnswerCategory] = handleOption(
       COMBO,
       comboRomaji,
       romajiArray,
-      charIndex,
-      correctAnswerCategory
+      charIndex
     );
   }
 
-  if (enabledOptions & DAKUON && correctAnswerCategory === undefined) {
+  if (enabledOptions & DAKUON && correctAnswerCategory === 0) {
     [romajiArray, correctAnswerCategory] = handleOption(
       DAKUON,
       dakuonRomaji,
       romajiArray,
-      charIndex,
-      correctAnswerCategory
+      charIndex
     );
   }
 
   if (
     (enabledOptions & STANDARD || romajiArray.length === 0) &&
-    correctAnswerCategory === undefined
+    correctAnswerCategory === 0
   ) {
     [romajiArray, correctAnswerCategory] = handleOption(
       STANDARD,
       standardRomaji,
       romajiArray,
-      charIndex,
-      correctAnswerCategory
+      charIndex
     );
   }
 
   const randomCharacter = kanaArray[charIndex];
   const correctRomaji = romajiArray[charIndex];
 
-  optionsElement.innerHTML = "";
+  optionsElement!.innerHTML = "";
 
   const incorrectAnswers = generateIncorrectAnswers(
     correctRomaji,
@@ -146,15 +147,15 @@ function nextCharacter() {
   const romajiOptions = [correctRomaji, ...incorrectAnswers];
   romajiOptions.sort(() => Math.random() - 0.5);
 
-  kanaCharacterElement.textContent = randomCharacter;
+  kanaCharacterElement!.textContent = randomCharacter;
 
   romajiOptions.forEach((option) => {
     const optionElement = createOptionElement(option, correctRomaji);
-    optionsElement.appendChild(optionElement);
+    optionsElement?.appendChild(optionElement);
   });
 }
 
-function getRandomCharIndex(maxLength) {
+function getRandomCharIndex(maxLength: number) {
   let charIndex = Math.floor(Math.random() * maxLength);
   while (charIndex === previousIndex) {
     charIndex = Math.floor(Math.random() * maxLength);
@@ -164,22 +165,26 @@ function getRandomCharIndex(maxLength) {
 }
 
 function handleOption(
-  optionType,
-  optionArray,
-  romajiArray,
-  charIndex,
-  correctAnswerCategory
-) {
+  optionType: number,
+  optionArray: string[],
+  romajiArray: string[],
+  charIndex: number
+): [string[], number] {
   romajiArray.push(...optionArray);
+  let correctAnswerCategory = 0;
+
   if (charIndex < romajiArray.length) {
     correctAnswerCategory = optionType;
   }
   return [romajiArray, correctAnswerCategory];
 }
 
-function generateIncorrectAnswers(correctRomaji, correctAnswerCategory) {
+function generateIncorrectAnswers(
+  correctRomaji: string,
+  correctAnswerCategory: number
+) {
   const categoryRomaji = getCategoryRomaji(correctAnswerCategory);
-  const incorrectAnswers = [];
+  const incorrectAnswers: string[] = [];
 
   while (incorrectAnswers.length < 9) {
     const randomIncorrectIndex = Math.floor(
@@ -198,7 +203,7 @@ function generateIncorrectAnswers(correctRomaji, correctAnswerCategory) {
   return incorrectAnswers;
 }
 
-function getCategoryRomaji(correctAnswerCategory) {
+function getCategoryRomaji(correctAnswerCategory: number) {
   switch (correctAnswerCategory) {
     case STANDARD:
       return standardRomaji;
