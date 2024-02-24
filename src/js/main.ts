@@ -10,28 +10,33 @@ import {
   comboRomaji,
 } from "./kana";
 
+// Constants
+const STANDARD = 1;
+const DAKUON = 2;
+const COMBO = 4;
+
+// Variables
 let sessionCounter = 0;
 let totalCounter = parseInt(localStorage.getItem("totalCounter") || "0");
 let previousIndex = -1;
-let enabledOptions = 1;
+let enabledOptions = STANDARD;
 
+// Syllabary
+const syllabaryEl = document.querySelector("[data-syllabary]");
+const syllabary = syllabaryEl?.getAttribute("data-syllabary");
+
+// DOM Elements
 const sessionCounterElement = document.getElementById("session-counter");
 const totalCounterElement = document.getElementById("total-counter");
 const kanaCharacterElement = document.getElementById("kana-character");
 const optionsElement = document.getElementById("options");
 
-const syllabary = document
-  .querySelector("[data-syllabary]")!
-  .getAttribute("data-syllabary");
-
-const STANDARD = 1;
-const DAKUON = 2;
-const COMBO = 4;
-
+// Checkboxes
 const standardCheckbox = document.getElementById("standard-checkbox");
 const dakuonCheckbox = document.getElementById("dakuon-checkbox");
 const comboCheckbox = document.getElementById("combo-checkbox");
 
+// Event listeners
 standardCheckbox?.addEventListener("change", () => toggleOption(STANDARD));
 dakuonCheckbox?.addEventListener("change", () => toggleOption(DAKUON));
 comboCheckbox?.addEventListener("change", () => toggleOption(COMBO));
@@ -97,64 +102,6 @@ function createOptionElement(option: string, correctRomaji: string) {
   return optionElement;
 }
 
-function nextCharacter() {
-  const kanaArray = getKanaArray();
-  const charIndex = getRandomCharIndex(kanaArray.length);
-  let correctAnswerCategory = 0;
-
-  let romajiArray: string[] = [];
-
-  if (enabledOptions & COMBO) {
-    [romajiArray, correctAnswerCategory] = handleOption(
-      COMBO,
-      comboRomaji,
-      romajiArray,
-      charIndex
-    );
-  }
-
-  if (enabledOptions & DAKUON && correctAnswerCategory === 0) {
-    [romajiArray, correctAnswerCategory] = handleOption(
-      DAKUON,
-      dakuonRomaji,
-      romajiArray,
-      charIndex
-    );
-  }
-
-  if (
-    (enabledOptions & STANDARD || romajiArray.length === 0) &&
-    correctAnswerCategory === 0
-  ) {
-    [romajiArray, correctAnswerCategory] = handleOption(
-      STANDARD,
-      standardRomaji,
-      romajiArray,
-      charIndex
-    );
-  }
-
-  const randomCharacter = kanaArray[charIndex];
-  const correctRomaji = romajiArray[charIndex];
-
-  optionsElement!.innerHTML = "";
-
-  const incorrectAnswers = generateIncorrectAnswers(
-    correctRomaji,
-    correctAnswerCategory
-  );
-
-  const romajiOptions = [correctRomaji, ...incorrectAnswers];
-  romajiOptions.sort(() => Math.random() - 0.5);
-
-  kanaCharacterElement!.textContent = randomCharacter;
-
-  romajiOptions.forEach((option) => {
-    const optionElement = createOptionElement(option, correctRomaji);
-    optionsElement?.appendChild(optionElement);
-  });
-}
-
 function getRandomCharIndex(maxLength: number) {
   let charIndex = Math.floor(Math.random() * maxLength);
   while (charIndex === previousIndex) {
@@ -214,6 +161,64 @@ function getCategoryRomaji(correctAnswerCategory: number) {
     default:
       return standardRomaji;
   }
+}
+
+function nextCharacter() {
+  const kanaArray = getKanaArray();
+  const charIndex = getRandomCharIndex(kanaArray.length);
+  let correctAnswerCategory = 0;
+
+  let romajiArray: string[] = [];
+
+  if (enabledOptions & COMBO) {
+    [romajiArray, correctAnswerCategory] = handleOption(
+      COMBO,
+      comboRomaji,
+      romajiArray,
+      charIndex
+    );
+  }
+
+  if (enabledOptions & DAKUON && correctAnswerCategory === 0) {
+    [romajiArray, correctAnswerCategory] = handleOption(
+      DAKUON,
+      dakuonRomaji,
+      romajiArray,
+      charIndex
+    );
+  }
+
+  if (
+    (enabledOptions & STANDARD || romajiArray.length === 0) &&
+    correctAnswerCategory === 0
+  ) {
+    [romajiArray, correctAnswerCategory] = handleOption(
+      STANDARD,
+      standardRomaji,
+      romajiArray,
+      charIndex
+    );
+  }
+
+  const randomCharacter = kanaArray[charIndex];
+  const correctRomaji = romajiArray[charIndex];
+
+  optionsElement!.innerHTML = "";
+
+  const incorrectAnswers = generateIncorrectAnswers(
+    correctRomaji,
+    correctAnswerCategory
+  );
+
+  const romajiOptions = [correctRomaji, ...incorrectAnswers];
+  romajiOptions.sort(() => Math.random() - 0.5);
+
+  kanaCharacterElement!.textContent = randomCharacter;
+
+  romajiOptions.forEach((option) => {
+    const optionElement = createOptionElement(option, correctRomaji);
+    optionsElement?.appendChild(optionElement);
+  });
 }
 
 updateCounters();
