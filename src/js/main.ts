@@ -173,15 +173,12 @@ function nextCharacter() {
     answerCategory = getAnswerCategory(COMBO, romajiArray, charIndex);
   }
 
-  if (enabledOptions & DAKUON && answerCategory === 0) {
+  if (enabledOptions & DAKUON) {
     romajiArray.push(...dakuonRomaji);
     answerCategory = getAnswerCategory(DAKUON, romajiArray, charIndex);
   }
 
-  if (
-    (enabledOptions & STANDARD || romajiArray.length === 0) &&
-    answerCategory === 0
-  ) {
+  if (enabledOptions & STANDARD || romajiArray.length === 0) {
     romajiArray.push(...standardRomaji);
     answerCategory = getAnswerCategory(STANDARD, romajiArray, charIndex);
   }
