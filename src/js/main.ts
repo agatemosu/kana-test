@@ -111,19 +111,17 @@ function getRandomCharIndex(maxLength: number) {
   return charIndex;
 }
 
-function handleOption(
+function getAnswerCategory(
   optionType: number,
-  optionArray: string[],
   romajiArray: string[],
   charIndex: number
-): [string[], number] {
-  romajiArray.push(...optionArray);
+) {
   let correctAnswerCategory = 0;
 
   if (charIndex < romajiArray.length) {
     correctAnswerCategory = optionType;
   }
-  return [romajiArray, correctAnswerCategory];
+  return correctAnswerCategory;
 }
 
 function generateIncorrectAnswers(
@@ -166,38 +164,26 @@ function getCategoryRomaji(correctAnswerCategory: number) {
 function nextCharacter() {
   const kanaArray = getKanaArray();
   const charIndex = getRandomCharIndex(kanaArray.length);
-  let correctAnswerCategory = 0;
+  let answerCategory = 0;
 
   let romajiArray: string[] = [];
 
   if (enabledOptions & COMBO) {
-    [romajiArray, correctAnswerCategory] = handleOption(
-      COMBO,
-      comboRomaji,
-      romajiArray,
-      charIndex
-    );
+    romajiArray.push(...comboRomaji);
+    answerCategory = getAnswerCategory(COMBO, romajiArray, charIndex);
   }
 
-  if (enabledOptions & DAKUON && correctAnswerCategory === 0) {
-    [romajiArray, correctAnswerCategory] = handleOption(
-      DAKUON,
-      dakuonRomaji,
-      romajiArray,
-      charIndex
-    );
+  if (enabledOptions & DAKUON && answerCategory === 0) {
+    romajiArray.push(...dakuonRomaji);
+    answerCategory = getAnswerCategory(DAKUON, romajiArray, charIndex);
   }
 
   if (
     (enabledOptions & STANDARD || romajiArray.length === 0) &&
-    correctAnswerCategory === 0
+    answerCategory === 0
   ) {
-    [romajiArray, correctAnswerCategory] = handleOption(
-      STANDARD,
-      standardRomaji,
-      romajiArray,
-      charIndex
-    );
+    romajiArray.push(...standardRomaji);
+    answerCategory = getAnswerCategory(STANDARD, romajiArray, charIndex);
   }
 
   const randomCharacter = kanaArray[charIndex];
@@ -207,7 +193,7 @@ function nextCharacter() {
 
   const incorrectAnswers = generateIncorrectAnswers(
     correctRomaji,
-    correctAnswerCategory
+    answerCategory
   );
 
   const romajiOptions = [correctRomaji, ...incorrectAnswers];
