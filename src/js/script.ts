@@ -68,7 +68,7 @@ function updateCounters() {
 
 function handleAnswer(
   selectedOption: string,
-  optionElement: HTMLElement,
+  optionElement: HTMLDivElement,
   correctRomaji: string
 ) {
   if (!optionElement.classList.contains("incorrect")) {
