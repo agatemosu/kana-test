@@ -48,7 +48,7 @@ function toggleOption(option: number) {
 }
 
 function getKanaArray() {
-  let selectedKana: string[] = [];
+  const selectedKana: string[] = [];
   switch (syllabary) {
     case "hiragana":
       if (enabledOptions & COMBO) selectedKana.push(...comboHiragana);
@@ -166,7 +166,7 @@ function nextCharacter() {
   const charIndex = getRandomCharIndex(kanaArray.length);
   let answerCategory = 0;
 
-  let romajiArray: string[] = [];
+  const romajiArray: string[] = [];
 
   if (enabledOptions & COMBO) {
     romajiArray.push(...comboRomaji);
