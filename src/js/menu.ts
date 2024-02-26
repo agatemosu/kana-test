@@ -6,13 +6,11 @@ document.addEventListener("click", function (event) {
     menu?.contains(event.target as Node) ||
     arrow?.contains(event.target as Node);
 
-  if (!isClickInsideMenu && menu) {
-    menu.style.display = "none";
+  if (!isClickInsideMenu) {
+    menu!.style.display = "none";
   }
 });
 
 arrow?.addEventListener("click", function () {
-  if (menu) {
-    menu.style.display = "grid";
-  }
+  menu!.style.display = "grid";
 });
