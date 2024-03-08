@@ -1,53 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hiragana Test</title>
-    <link rel="stylesheet" href="css/styles.css" />
-    <script src="js/main.ts" type="module" data-syllabary="hiragana"></script>
-    <script src="js/menu.ts" defer></script>
-  </head>
-  <body>
-    <header>
-      <h1><a href="index">Kana Test</a></h1>
-      <h1 class="main">Hiragana</h1>
-    </header>
-    <main>
-      <section class="scores">
-        <span class="counter">Session counter</span>
-        <span id="session-counter" class="count">-</span>
-        <span class="counter">Total counter</span>
-        <span id="total-counter" class="count">-</span>
-      </section>
-      <section id="arrow" class="checkboxes">
-        <svg viewBox="0 0 320 512" width="20px">
-          <path
-            fill="currentColor"
-            d="M34.5 239L228.9 44.7c9.4-9.4 24.6-9.4 33.9 0l22.7 22.7c9.4 9.4
-            9.4 24.5 0 33.9L131.5 256l154 154.8c9.3 9.4 9.3 24.5 0 33.9l-22.7
-            22.7c-9.4 9.4-24.6 9.4-33.9 0L34.5 273c-9.4-9.4-9.4-24.6 0-33.9z"
-          />
-        </svg>
-      </section>
-      <section id="menu" class="checkboxes">
-        <div>
-          <input type="checkbox" id="combo-checkbox" />
-          <label for="combo-checkbox">Combo</label>
-        </div>
-        <div>
-          <input type="checkbox" id="dakuon-checkbox" />
-          <label for="dakuon-checkbox">Dakuon</label>
-        </div>
-        <div>
-          <input type="checkbox" id="standard-checkbox" checked />
-          <label for="standard-checkbox">Standard</label>
-        </div>
-      </section>
-      <section class="kana-container">
-        <div id="kana-character"></div>
-        <div id="options"></div>
-      </section>
-    </main>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Hiragana Test</title>
+		<link rel="stylesheet" href="css/styles.css" />
+		<script src="js/main.ts" type="module" data-syllabary="hiragana"></script>
+		<script src="js/menu.ts" defer></script>
+	</head>
+	<body>
+		<header>
+			<h1><a href="index">Kana Test</a></h1>
+			<h1 class="main">Hiragana</h1>
+		</header>
+		<main>
+			<section class="scores">
+				<span class="counter">Session counter</span>
+				<span id="session-counter" class="count">-</span>
+				<span class="counter">Total counter</span>
+				<span id="total-counter" class="count">-</span>
+			</section>
+			<section id="arrow" class="checkboxes">
+				<svg viewBox="0 0 320 512" width="20px">
+					<path
+						fill="currentColor"
+						d="M34.5 239L228.9 44.7c9.4-9.4 24.6-9.4 33.9 0l22.7 22.7c9.4 9.4
+						9.4 24.5 0 33.9L131.5 256l154 154.8c9.3 9.4 9.3 24.5 0 33.9l-22.7
+						22.7c-9.4 9.4-24.6 9.4-33.9 0L34.5 273c-9.4-9.4-9.4-24.6 0-33.9z"
+					/>
+				</svg>
+			</section>
+			<section id="menu" class="checkboxes">
+				<div>
+					<input type="checkbox" id="combo-checkbox" />
+					<label for="combo-checkbox">Combo</label>
+				</div>
+				<div>
+					<input type="checkbox" id="dakuon-checkbox" />
+					<label for="dakuon-checkbox">Dakuon</label>
+				</div>
+				<div>
+					<input type="checkbox" id="standard-checkbox" checked />
+					<label for="standard-checkbox">Standard</label>
+				</div>
+			</section>
+			<section class="kana-container">
+				<div id="kana-character"></div>
+				<div id="options"></div>
+			</section>
+		</main>
+	</body>
 </html>
