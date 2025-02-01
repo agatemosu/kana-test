@@ -9,8 +9,8 @@ const YOON = 4;
 
 let sessionCounter = 0;
 let totalCounter = Number.parseInt(localStorage.getItem("totalCounter") ?? "0");
-let previousIndex = -1;
 let enabledOptions = SEION;
+let previousIndex: number;
 
 type KanaArray = [string, string][];
 
