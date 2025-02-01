@@ -11,6 +11,7 @@ let sessionCounter = 0;
 let totalCounter = Number.parseInt(localStorage.getItem("totalCounter") ?? "0");
 let enabledOptions = SEION;
 let previousIndex: number;
+let currentCategory: number;
 
 type KanaArray = [string, string][];
 
@@ -24,7 +25,7 @@ const els = {
 	dakuonCheckbox: $("#dakuon-checkbox"),
 	yoonCheckbox: $("#yoon-checkbox"),
 };
-const syllabary = $("[data-syllabary]").dataset.syllabary;
+const isHiragana = $("[data-syllabary]").dataset.syllabary === "hiragana";
 
 // Event listeners
 els.seionCheckbox.addEventListener("change", () => toggleOption(SEION));
@@ -39,7 +40,7 @@ function toggleOption(option: number) {
 
 function extractKana(kanaSet: KanaEntry[]): KanaArray {
 	return kanaSet.map(([hiragana, katakana, romaji]) => {
-		return syllabary === "hiragana" ? [hiragana, romaji] : [katakana, romaji];
+		return isHiragana ? [hiragana, romaji] : [katakana, romaji];
 	});
 }
 
@@ -101,9 +102,21 @@ function getRandomCharIndex(maxLength: number) {
 	return charIndex;
 }
 
+function getCategoryForKana(kana: string) {
+	if (dakuon.some(([h, k]) => (isHiragana ? h === kana : k === kana))) {
+		return DAKUON;
+	}
+	if (yoon.some(([h, k]) => (isHiragana ? h === kana : k === kana))) {
+		return YOON;
+	}
+	return SEION;
+}
+
 function generateAnswers(correctRomaji: string, kanaArray: KanaArray) {
-	const allRomaji = kanaArray.map(([_, romaji]) => romaji);
 	const incorrectAnswers = [correctRomaji];
+	const allRomaji = kanaArray
+		.filter(([kana]) => getCategoryForKana(kana) === currentCategory)
+		.map(([_, romaji]) => romaji);
 
 	while (incorrectAnswers.length < 9) {
 		const randomIndex = Math.floor(Math.random() * allRomaji.length);
@@ -127,9 +140,10 @@ function nextCharacter() {
 
 	const [randomCharacter, correctRomaji] = kanaArray[charIndex];
 
-	els.kanaCharacter.textContent = randomCharacter;
-
+	currentCategory = getCategoryForKana(randomCharacter);
 	const romajiOptions = generateAnswers(correctRomaji, kanaArray);
+
+	els.kanaCharacter.textContent = randomCharacter;
 
 	for (const option of romajiOptions) {
 		const optionElement = createOptionElement(option, correctRomaji);
