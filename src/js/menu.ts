@@ -1,16 +1,18 @@
-const menu = document.getElementById("menu");
-const arrow = document.getElementById("arrow");
+import { $ } from "./utils";
+
+const menu = $("#menu");
+const arrow = $("#arrow");
 
 document.addEventListener("click", (event) => {
-	const isClickInsideMenu =
-		menu?.contains(event.target as Node) ||
-		arrow?.contains(event.target as Node);
+	const target = event.target as HTMLElement;
+	if (target.closest("#arrow")) {
+		menu.style.display = "grid";
+		return;
+	}
+
+	const isClickInsideMenu = menu.contains(target) || arrow.contains(target);
 
 	if (!isClickInsideMenu) {
-		menu!.style.display = "none";
+		menu.style.display = "none";
 	}
-});
-
-arrow?.addEventListener("click", () => {
-	menu!.style.display = "grid";
 });
