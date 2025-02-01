@@ -1,14 +1,4 @@
-import {
-	standardHiragana,
-	standardKatakana,
-	standardRomaji,
-	dakuonHiragana,
-	dakuonKatakana,
-	dakuonRomaji,
-	comboHiragana,
-	comboKatakana,
-	comboRomaji,
-} from "./kana";
+import { type KanaEntry, dakuon, seion, yoon } from "./kana";
 import { $ } from "./utils";
 import "./menu";
 
@@ -21,6 +11,8 @@ let sessionCounter = 0;
 let totalCounter = Number.parseInt(localStorage.getItem("totalCounter") ?? "0");
 let previousIndex = -1;
 let enabledOptions = STANDARD;
+
+type KanaArray = [string, string][];
 
 // Elements
 const els = {
@@ -45,22 +37,21 @@ function toggleOption(option: number) {
 	nextCharacter();
 }
 
+function extractKana(kanaSet: KanaEntry[]): KanaArray {
+	return kanaSet.map(([hiragana, katakana, romaji]) => {
+		return syllabary === "hiragana" ? [hiragana, romaji] : [katakana, romaji];
+	});
+}
+
 function getKanaArray() {
-	const selectedKana: string[] = [];
-	switch (syllabary) {
-		case "hiragana":
-			if (enabledOptions & COMBO) selectedKana.push(...comboHiragana);
-			if (enabledOptions & DAKUON) selectedKana.push(...dakuonHiragana);
-			if (enabledOptions & STANDARD) selectedKana.push(...standardHiragana);
-			if (selectedKana.length === 0) selectedKana.push(...standardHiragana);
-			break;
-		case "katakana":
-			if (enabledOptions & COMBO) selectedKana.push(...comboKatakana);
-			if (enabledOptions & DAKUON) selectedKana.push(...dakuonKatakana);
-			if (enabledOptions & STANDARD) selectedKana.push(...standardKatakana);
-			if (selectedKana.length === 0) selectedKana.push(...standardKatakana);
-			break;
+	const selectedKana: KanaArray = [];
+
+	if (enabledOptions & COMBO) selectedKana.push(...extractKana(yoon));
+	if (enabledOptions & DAKUON) selectedKana.push(...extractKana(dakuon));
+	if (enabledOptions & STANDARD || selectedKana.length === 0) {
+		selectedKana.push(...extractKana(seion));
 	}
+
 	return selectedKana;
 }
 
@@ -109,90 +100,34 @@ function getRandomCharIndex(maxLength: number) {
 	return charIndex;
 }
 
-function getAnswerCategory(
-	optionType: number,
-	romajiArray: string[],
-	charIndex: number,
-) {
-	let correctAnswerCategory = 0;
-
-	if (charIndex < romajiArray.length) {
-		correctAnswerCategory = optionType;
-	}
-	return correctAnswerCategory;
-}
-
-function generateIncorrectAnswers(
-	correctRomaji: string,
-	correctAnswerCategory: number,
-) {
-	const categoryRomaji = getCategoryRomaji(correctAnswerCategory);
+function generateAnswers(correctRomaji: string, kanaArray: KanaArray) {
+	const allRomaji = kanaArray.map(([_, romaji]) => romaji);
 	const incorrectAnswers: string[] = [];
 
 	while (incorrectAnswers.length < 9) {
-		const randomIncorrectIndex = Math.floor(
-			Math.random() * categoryRomaji.length,
-		);
-		const randomIncorrectRomaji = categoryRomaji[randomIncorrectIndex];
+		const randomIndex = Math.floor(Math.random() * allRomaji.length);
+		const randomRomaji = allRomaji[randomIndex];
 
 		if (
-			randomIncorrectRomaji !== correctRomaji &&
-			!incorrectAnswers.includes(randomIncorrectRomaji)
+			randomRomaji !== correctRomaji &&
+			!incorrectAnswers.includes(randomRomaji)
 		) {
-			incorrectAnswers.push(randomIncorrectRomaji);
+			incorrectAnswers.push(randomRomaji);
 		}
 	}
 
 	return incorrectAnswers;
 }
 
-function getCategoryRomaji(correctAnswerCategory: number) {
-	switch (correctAnswerCategory) {
-		case STANDARD:
-			return standardRomaji;
-		case DAKUON:
-			return dakuonRomaji;
-		case COMBO:
-			return comboRomaji;
-		default:
-			return standardRomaji;
-	}
-}
-
 function nextCharacter() {
 	const kanaArray = getKanaArray();
 	const charIndex = getRandomCharIndex(kanaArray.length);
-	let answerCategory = 0;
 
-	const romajiArray: string[] = [];
-
-	if (enabledOptions & COMBO) {
-		romajiArray.push(...comboRomaji);
-		answerCategory = getAnswerCategory(COMBO, romajiArray, charIndex);
-	}
-
-	if (enabledOptions & DAKUON && answerCategory === 0) {
-		romajiArray.push(...dakuonRomaji);
-		answerCategory = getAnswerCategory(DAKUON, romajiArray, charIndex);
-	}
-
-	if (
-		(enabledOptions & STANDARD || romajiArray.length === 0) &&
-		answerCategory === 0
-	) {
-		romajiArray.push(...standardRomaji);
-		answerCategory = getAnswerCategory(STANDARD, romajiArray, charIndex);
-	}
-
-	const randomCharacter = kanaArray[charIndex];
-	const correctRomaji = romajiArray[charIndex];
+	const [randomCharacter, correctRomaji] = kanaArray[charIndex];
 
 	els.options.innerHTML = "";
 
-	const incorrectAnswers = generateIncorrectAnswers(
-		correctRomaji,
-		answerCategory,
-	);
+	const incorrectAnswers = generateAnswers(correctRomaji, kanaArray);
 
 	const romajiOptions = [correctRomaji, ...incorrectAnswers];
 	romajiOptions.sort(() => Math.random() - 0.5);
