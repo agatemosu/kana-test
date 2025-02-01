@@ -103,21 +103,18 @@ function getRandomCharIndex(maxLength: number) {
 
 function generateAnswers(correctRomaji: string, kanaArray: KanaArray) {
 	const allRomaji = kanaArray.map(([_, romaji]) => romaji);
-	const incorrectAnswers: string[] = [];
+	const incorrectAnswers = [correctRomaji];
 
 	while (incorrectAnswers.length < 9) {
 		const randomIndex = Math.floor(Math.random() * allRomaji.length);
 		const randomRomaji = allRomaji[randomIndex];
 
-		if (
-			randomRomaji !== correctRomaji &&
-			!incorrectAnswers.includes(randomRomaji)
-		) {
+		if (!incorrectAnswers.includes(randomRomaji)) {
 			incorrectAnswers.push(randomRomaji);
 		}
 	}
 
-	return incorrectAnswers;
+	return incorrectAnswers.sort(() => Math.random() - 0.5);
 }
 
 function nextCharacter() {
@@ -130,12 +127,9 @@ function nextCharacter() {
 
 	const [randomCharacter, correctRomaji] = kanaArray[charIndex];
 
-	const incorrectAnswers = generateAnswers(correctRomaji, kanaArray);
-
-	const romajiOptions = [correctRomaji, ...incorrectAnswers];
-	romajiOptions.sort(() => Math.random() - 0.5);
-
 	els.kanaCharacter.textContent = randomCharacter;
+
+	const romajiOptions = generateAnswers(correctRomaji, kanaArray);
 
 	for (const option of romajiOptions) {
 		const optionElement = createOptionElement(option, correctRomaji);
