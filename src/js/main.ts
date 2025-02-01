@@ -121,12 +121,14 @@ function generateAnswers(correctRomaji: string, kanaArray: KanaArray) {
 }
 
 function nextCharacter() {
+	while (els.options.childElementCount > 0) {
+		els.options.firstChild?.remove();
+	}
+
 	const kanaArray = getKanaArray();
 	const charIndex = getRandomCharIndex(kanaArray.length);
 
 	const [randomCharacter, correctRomaji] = kanaArray[charIndex];
-
-	els.options.innerHTML = "";
 
 	const incorrectAnswers = generateAnswers(correctRomaji, kanaArray);
 
