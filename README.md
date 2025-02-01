@@ -2,20 +2,20 @@
 
 ## Running locally
 
-1. Download yarn:
+1. Download pnpm:
 
    ```sh
-   npm install -g yarn
+   npm install -g pnpm
    ```
 
 2. Install dependencies:
 
    ```sh
-   yarn install
+   pnpm i
    ```
 
 3. Run the website:
 
    ```sh
-   yarn run start
+   node --run start
    ```
