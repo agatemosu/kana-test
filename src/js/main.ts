@@ -65,20 +65,21 @@ function handleAnswer(
 	optionElement: HTMLDivElement,
 	correctRomaji: string,
 ) {
-	if (!optionElement.classList.contains("incorrect")) {
-		if (selectedOption === correctRomaji) {
-			sessionCounter++;
-			totalCounter++;
+	if (optionElement.classList.contains("incorrect")) return;
 
-			localStorage.setItem("totalCounter", totalCounter.toString());
-			updateCounters();
-
-			// Maybe add a transition?
-			setTimeout(nextCharacter, 0);
-		} else {
-			optionElement.classList.add("incorrect");
-		}
+	if (selectedOption !== correctRomaji) {
+		optionElement.classList.add("incorrect");
+		return;
 	}
+
+	sessionCounter++;
+	totalCounter++;
+
+	localStorage.setItem("totalCounter", totalCounter.toString());
+	updateCounters();
+
+	// Maybe add a transition?
+	setTimeout(nextCharacter, 0);
 }
 
 function createOptionElement(option: string, correctRomaji: string) {
