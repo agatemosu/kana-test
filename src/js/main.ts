@@ -3,14 +3,14 @@ import { $ } from "./utils";
 import "./menu";
 
 // Variables
-const STANDARD = 1;
+const SEION = 1;
 const DAKUON = 2;
-const COMBO = 4;
+const YOON = 4;
 
 let sessionCounter = 0;
 let totalCounter = Number.parseInt(localStorage.getItem("totalCounter") ?? "0");
 let previousIndex = -1;
-let enabledOptions = STANDARD;
+let enabledOptions = SEION;
 
 type KanaArray = [string, string][];
 
@@ -20,16 +20,16 @@ const els = {
 	totalCounter: $("#total-counter"),
 	kanaCharacter: $("#kana-character"),
 	options: $("#options"),
-	standardCheckbox: $("#standard-checkbox"),
+	seionCheckbox: $("#seion-checkbox"),
 	dakuonCheckbox: $("#dakuon-checkbox"),
-	comboCheckbox: $("#combo-checkbox"),
+	yoonCheckbox: $("#yoon-checkbox"),
 };
 const syllabary = $("[data-syllabary]").dataset.syllabary;
 
 // Event listeners
-els.standardCheckbox.addEventListener("change", () => toggleOption(STANDARD));
+els.seionCheckbox.addEventListener("change", () => toggleOption(SEION));
 els.dakuonCheckbox.addEventListener("change", () => toggleOption(DAKUON));
-els.comboCheckbox.addEventListener("change", () => toggleOption(COMBO));
+els.yoonCheckbox.addEventListener("change", () => toggleOption(YOON));
 
 function toggleOption(option: number) {
 	// Toggle the option
@@ -46,9 +46,9 @@ function extractKana(kanaSet: KanaEntry[]): KanaArray {
 function getKanaArray() {
 	const selectedKana: KanaArray = [];
 
-	if (enabledOptions & COMBO) selectedKana.push(...extractKana(yoon));
+	if (enabledOptions & YOON) selectedKana.push(...extractKana(yoon));
 	if (enabledOptions & DAKUON) selectedKana.push(...extractKana(dakuon));
-	if (enabledOptions & STANDARD || selectedKana.length === 0) {
+	if (enabledOptions & SEION || selectedKana.length === 0) {
 		selectedKana.push(...extractKana(seion));
 	}
 
