@@ -9,59 +9,51 @@
 	</head>
 	<body>
 		<header class="header">
-			<h1 class="header__title main">
-				<a href="index" class="header__link">Kana Test</a>
-			</h1>
-			<h1 class="header__title">Katakana</h1>
+			<a href="index" class="header__item main">Kana Test</a>
+			<span class="header__item">Katakana</span>
 		</header>
-		<main class="main-content">
-			<section class="scoreboard">
-				<span class="scoreboard__label">Session counter</span>
-				<span id="session-counter" class="scoreboard__count">-</span>
-				<span class="scoreboard__label">Total counter</span>
-				<span id="total-counter" class="scoreboard__count">-</span>
-			</section>
-			<section id="arrow" class="option-menu arrow">
-				<svg viewBox="0 0 320 512" width="20px">
-					<path
-						fill="currentColor"
-						d="M34.5 239L228.9 44.7c9.4-9.4 24.6-9.4 33.9 0l22.7 22.7c9.4 9.4
+		<aside class="scoreboard">
+			<span>Session counter</span>
+			<span id="session-counter" class="scoreboard__count">-</span>
+			<span>Total counter</span>
+			<span id="total-counter" class="scoreboard__count">-</span>
+		</aside>
+		<aside id="arrow" class="option-menu arrow">
+			<svg viewBox="0 0 320 512" width="20px">
+				<path
+					fill="currentColor"
+					d="M34.5 239L228.9 44.7c9.4-9.4 24.6-9.4 33.9 0l22.7 22.7c9.4 9.4
 						9.4 24.5 0 33.9L131.5 256l154 154.8c9.3 9.4 9.3 24.5 0 33.9l-22.7
 						22.7c-9.4 9.4-24.6 9.4-33.9 0L34.5 273c-9.4-9.4-9.4-24.6 0-33.9z"
-					/>
-				</svg>
-			</section>
-			<section id="menu" class="option-menu">
-				<div class="option-menu__item">
-					<input
-						type="checkbox"
-						id="yoon-option"
-						class="option-menu__checkbox"
-					/>
-					<label for="yoon-option" class="option-menu__label">Combo</label>
-				</div>
-				<div class="option-menu__item">
-					<input
-						type="checkbox"
-						id="dakuon-option"
-						class="option-menu__checkbox"
-					/>
-					<label for="dakuon-option" class="option-menu__label">Dakuon</label>
-				</div>
-				<div class="option-menu__item">
-					<input
-						type="checkbox"
-						id="seion-option"
-						checked
-						class="option-menu__checkbox"
-					/>
-					<label for="seion-option" class="option-menu__label">Standard</label>
-				</div>
-			</section>
-			<section class="kana-display">
-				<div id="kana-character" class="kana-display__character"></div>
-				<div id="options" class="kana-display__options"></div>
-			</section>
+				/>
+			</svg>
+		</aside>
+		<aside id="menu" class="option-menu">
+			<div class="option-menu__item">
+				<input type="checkbox" id="yoon-option" class="option-menu__checkbox" />
+				<label for="yoon-option" class="option-menu__label">Combo</label>
+			</div>
+			<div class="option-menu__item">
+				<input
+					type="checkbox"
+					id="dakuon-option"
+					class="option-menu__checkbox"
+				/>
+				<label for="dakuon-option" class="option-menu__label">Dakuon</label>
+			</div>
+			<div class="option-menu__item">
+				<input
+					type="checkbox"
+					id="seion-option"
+					checked
+					class="option-menu__checkbox"
+				/>
+				<label for="seion-option" class="option-menu__label">Standard</label>
+			</div>
+		</aside>
+		<main class="kana-display">
+			<div id="kana-character" class="kana-display__character"></div>
+			<div id="options" class="kana-display__options"></div>
 		</main>
 	</body>
 </html>

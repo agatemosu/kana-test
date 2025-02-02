@@ -1,70 +1,63 @@
 body {
 	color: #333;
+	background-color: #fff;
 	margin: 0;
 	font-family: Arial, Helvetica, sans-serif;
 }
 
 ::selection {
 	color: #fff;
-	background: #3498db88;
-}
-
-.main-content {
-	float: left;
-	width: 100%;
-	height: calc(100dvh - 120px);
+	background-color: #3498db88;
 }
 
 /* Header */
 .header {
-	margin: 0 1%;
+	display: flex;
+	flex-wrap: wrap;
+	position: absolute;
+	left: 1%;
 }
 
-.header__title {
-	float: left;
+.header__item {
 	text-transform: uppercase;
 	color: #fff;
 	letter-spacing: 2px;
-	background: #349;
-	margin: 0;
+	background-color: #349;
 	padding: 20px;
-	font-size: 24px;
+	font-size: 1.5em;
 	font-weight: 800;
 	line-height: 20px;
-
-	&.main {
-		background: #c35;
-	}
-}
-
-.header__link {
 	color: #fff;
 	text-decoration: none;
+
+	&.main {
+		background-color: #c35;
+	}
 }
 
 /* Counters */
 .scoreboard {
 	text-align: right;
-	margin-top: 1%;
-	display: grid;
+	flex-direction: column;
+	display: flex;
 	position: absolute;
+	top: 1%;
 	right: 1%;
 }
 
 .scoreboard__count {
 	color: #999;
 	margin-right: 10%;
-	font-size: 50px;
+	font-size: 3em;
 }
 
 /* Options */
 .kana-display {
-	-webkit-user-select: none;
 	user-select: none;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	height: calc(100vh - 120px);
+	height: 100vh;
 	display: flex;
 }
 
@@ -74,19 +67,19 @@ body {
 }
 
 .kana-display__options {
+	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	display: flex;
+	gap: 20px;
 }
 
 .kana-display__option {
 	cursor: pointer;
 	border: 1px solid #ccc;
 	border-radius: 5px;
-	margin: 10px;
 	padding: 10px 20px;
-	font-size: 24px;
-	transition: all 0.3s;
+	font-size: 1.5em;
+	transition: all 300ms;
 
 	&:hover {
 		color: #fff;
@@ -101,11 +94,12 @@ body {
 
 /* Option menu */
 .option-menu {
+	display: flex;
+	flex-direction: column;
 	color: #ffd43b;
 	background-color: #222;
 	gap: 10px;
 	padding: 10px;
-	display: grid;
 	position: absolute;
 	top: 50%;
 	right: 0;
@@ -122,12 +116,12 @@ body {
 
 /* Landing */
 .navigation {
+	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	gap: 10px;
-	display: flex;
-	height: 100%;
+	height: 100dvh;
 }
 
 .navigation__link {
@@ -136,7 +130,7 @@ body {
 	padding: 64px 48px;
 	text-decoration: none;
 	font-size: 4em;
-	transition: background-color 0.3s;
+	transition: background-color 300ms;
 
 	&:hover {
 		background-color: #eee;
