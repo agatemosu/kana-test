@@ -4,7 +4,7 @@ const menu = $("#menu");
 const arrow = $("#arrow");
 
 document.addEventListener("click", (event) => {
-	const target = event.target as HTMLElement;
+	const target = event.target as Element;
 	if (target.closest("#arrow")) {
 		menu.style.display = "grid";
 		return;
