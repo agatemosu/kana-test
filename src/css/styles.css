@@ -1,34 +1,33 @@
 body {
-	color: #333;
-	background-color: #fff;
 	margin: 0;
+	background-color: #fff;
+	color: #333;
 	font-family: Arial, Helvetica, sans-serif;
 }
 
 ::selection {
-	color: #fff;
 	background-color: #3498db88;
+	color: #fff;
 }
 
 /* Header */
 .header {
 	display: flex;
-	flex-wrap: wrap;
 	position: absolute;
 	left: 1%;
+	flex-wrap: wrap;
 }
 
 .header__item {
-	text-transform: uppercase;
-	color: #fff;
-	letter-spacing: 2px;
 	background-color: #349;
 	padding: 20px;
-	font-size: 1.5em;
-	font-weight: 800;
-	line-height: 20px;
 	color: #fff;
+	font-weight: 800;
+	font-size: 1.5em;
+	line-height: 20px;
+	letter-spacing: 2px;
 	text-decoration: none;
+	text-transform: uppercase;
 
 	&.main {
 		background-color: #c35;
@@ -37,33 +36,33 @@ body {
 
 /* Counters */
 .scoreboard {
-	text-align: right;
-	flex-direction: column;
 	display: flex;
 	position: absolute;
 	top: 1%;
 	right: 1%;
+	flex-direction: column;
+	text-align: right;
 }
 
 .scoreboard__count {
-	color: #999;
 	margin-right: 10%;
+	color: #999;
 	font-size: 3em;
 }
 
 /* Options */
 .kana-display {
-	user-select: none;
+	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	height: 100vh;
-	display: flex;
+	user-select: none;
 }
 
 .kana-display__character {
-	font-size: min(16em, 48vw);
 	font-weight: 700;
+	font-size: min(16em, 48vw);
 }
 
 .kana-display__options {
@@ -74,36 +73,36 @@ body {
 }
 
 .kana-display__option {
+	transition: all 300ms;
 	cursor: pointer;
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	padding: 10px 20px;
 	font-size: 1.5em;
-	transition: all 300ms;
 
 	&:hover {
-		color: #fff;
 		background-color: #3498db;
+		color: #fff;
 	}
 
 	&.incorrect {
-		color: #fff;
 		background-color: #c35;
+		color: #fff;
 	}
 }
 
 /* Option menu */
 .option-menu {
 	display: flex;
-	flex-direction: column;
-	color: #ffd43b;
-	background-color: #222;
-	gap: 10px;
-	padding: 10px;
 	position: absolute;
 	top: 50%;
 	right: 0;
+	flex-direction: column;
+	gap: 10px;
 	transform: translateY(-50%);
+	background-color: #222;
+	padding: 10px;
+	color: #ffd43b;
 
 	&.arrow {
 		cursor: pointer;
@@ -125,12 +124,12 @@ body {
 }
 
 .navigation__link {
-	color: #666;
+	transition: background-color 300ms;
 	border-radius: 100px;
 	padding: 64px 48px;
-	text-decoration: none;
+	color: #666;
 	font-size: 4em;
-	transition: background-color 300ms;
+	text-decoration: none;
 
 	&:hover {
 		background-color: #eee;
