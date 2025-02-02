@@ -4,46 +4,46 @@ body {
 	font-family: Arial, Helvetica, sans-serif;
 }
 
-main {
-	float: left;
-	width: 100%;
-	height: calc(100dvh - 120px);
-}
-
-a {
-	color: #fff;
-	text-decoration: none;
-}
-
 ::selection {
 	color: #fff;
 	background: #3498db88;
 }
 
+.main-content {
+	float: left;
+	width: 100%;
+	height: calc(100dvh - 120px);
+}
+
 /* Header */
-header {
+.header {
 	margin: 0 1%;
+}
 
-	& > h1 {
-		float: left;
-		text-transform: uppercase;
-		color: #fff;
-		letter-spacing: 2px;
+.header__title {
+	float: left;
+	text-transform: uppercase;
+	color: #fff;
+	letter-spacing: 2px;
+	background: #349;
+	margin: 0;
+	padding: 20px;
+	font-size: 24px;
+	font-weight: 800;
+	line-height: 20px;
+
+	&.main {
 		background: #c35;
-		margin: 0;
-		padding: 20px;
-		font-size: 24px;
-		font-weight: 800;
-		line-height: 20px;
-
-		&.main {
-			background: #349;
-		}
 	}
 }
 
+.header__link {
+	color: #fff;
+	text-decoration: none;
+}
+
 /* Counters */
-.scores {
+.scoreboard {
 	text-align: right;
 	margin-top: 1%;
 	display: grid;
@@ -51,14 +51,14 @@ header {
 	right: 1%;
 }
 
-.count {
+.scoreboard__count {
 	color: #999;
 	margin-right: 10%;
 	font-size: 50px;
 }
 
 /* Options */
-.kana-container {
+.kana-display {
 	-webkit-user-select: none;
 	user-select: none;
 	flex-direction: column;
@@ -68,18 +68,18 @@ header {
 	display: flex;
 }
 
-#kana-character {
+.kana-display__character {
 	font-size: min(16em, 48vw);
 	font-weight: 700;
 }
 
-#options {
+.kana-display__options {
 	flex-wrap: wrap;
 	justify-content: center;
 	display: flex;
 }
 
-.option {
+.kana-display__option {
 	cursor: pointer;
 	border: 1px solid #ccc;
 	border-radius: 5px;
@@ -99,8 +99,8 @@ header {
 	}
 }
 
-/* Checkboxes */
-.checkboxes {
+/* Option menu */
+.option-menu {
 	color: #ffd43b;
 	background-color: #222;
 	gap: 10px;
@@ -111,7 +111,34 @@ header {
 	right: 0;
 	transform: translateY(-50%);
 
-	&#arrow {
+	&.arrow {
 		cursor: pointer;
+	}
+
+	&.hidden {
+		display: none;
+	}
+}
+
+/* Landing */
+.navigation {
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	display: flex;
+	height: 100%;
+}
+
+.navigation__link {
+	color: #666;
+	border-radius: 100px;
+	padding: 64px 48px;
+	text-decoration: none;
+	font-size: 4em;
+	transition: background-color 0.3s;
+
+	&:hover {
+		background-color: #eee;
 	}
 }

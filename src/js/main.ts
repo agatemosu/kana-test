@@ -21,16 +21,16 @@ const els = {
 	totalCounter: $("#total-counter"),
 	kanaCharacter: $("#kana-character"),
 	options: $("#options"),
-	seionCheckbox: $("#seion-checkbox"),
-	dakuonCheckbox: $("#dakuon-checkbox"),
-	yoonCheckbox: $("#yoon-checkbox"),
+	seionOption: $("#seion-option"),
+	dakuonOption: $("#dakuon-option"),
+	yoonOption: $("#yoon-option"),
 };
 const isHiragana = $("[data-syllabary]").dataset.syllabary === "hiragana";
 
 // Event listeners
-els.seionCheckbox.addEventListener("change", () => toggleOption(SEION));
-els.dakuonCheckbox.addEventListener("change", () => toggleOption(DAKUON));
-els.yoonCheckbox.addEventListener("change", () => toggleOption(YOON));
+els.seionOption.addEventListener("change", () => toggleOption(SEION));
+els.dakuonOption.addEventListener("change", () => toggleOption(DAKUON));
+els.yoonOption.addEventListener("change", () => toggleOption(YOON));
 
 function toggleOption(option: number) {
 	// Toggle the option
@@ -85,7 +85,7 @@ function handleAnswer(
 
 function createOptionElement(option: string, correctRomaji: string) {
 	const optionElement = document.createElement("div");
-	optionElement.classList.add("option");
+	optionElement.classList.add("kana-display__option");
 	optionElement.textContent = option;
 	optionElement.onclick = () => {
 		handleAnswer(option, optionElement, correctRomaji);

@@ -6,13 +6,13 @@ const arrow = $("#arrow");
 document.addEventListener("click", (event) => {
 	const target = event.target as Element;
 	if (target.closest("#arrow")) {
-		menu.style.display = "grid";
+		menu.classList.remove("hidden");
 		return;
 	}
 
 	const isClickInsideMenu = menu.contains(target) || arrow.contains(target);
 
 	if (!isClickInsideMenu) {
-		menu.style.display = "none";
+		menu.classList.add("hidden");
 	}
 });

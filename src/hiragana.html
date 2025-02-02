@@ -8,18 +8,20 @@
 		<script src="js/main.ts" type="module" data-syllabary="hiragana"></script>
 	</head>
 	<body>
-		<header>
-			<h1><a href="index">Kana Test</a></h1>
-			<h1 class="main">Hiragana</h1>
+		<header class="header">
+			<h1 class="header__title main">
+				<a href="index" class="header__link">Kana Test</a>
+			</h1>
+			<h1 class="header__title">Hiragana</h1>
 		</header>
-		<main>
-			<section class="scores">
-				<span class="counter">Session counter</span>
-				<span id="session-counter" class="count">-</span>
-				<span class="counter">Total counter</span>
-				<span id="total-counter" class="count">-</span>
+		<main class="main-content">
+			<section class="scoreboard">
+				<span class="scoreboard__label">Session counter</span>
+				<span id="session-counter" class="scoreboard__count">-</span>
+				<span class="scoreboard__label">Total counter</span>
+				<span id="total-counter" class="scoreboard__count">-</span>
 			</section>
-			<section id="arrow" class="checkboxes">
+			<section id="arrow" class="option-menu arrow">
 				<svg viewBox="0 0 320 512" width="20px">
 					<path
 						fill="currentColor"
@@ -29,23 +31,36 @@
 					/>
 				</svg>
 			</section>
-			<section id="menu" class="checkboxes">
-				<div>
-					<input type="checkbox" id="yoon-checkbox" />
-					<label for="yoon-checkbox">Combo</label>
+			<section id="menu" class="option-menu">
+				<div class="option-menu__item">
+					<input
+						type="checkbox"
+						id="yoon-option"
+						class="option-menu__checkbox"
+					/>
+					<label for="yoon-option" class="option-menu__label">Combo</label>
 				</div>
-				<div>
-					<input type="checkbox" id="dakuon-checkbox" />
-					<label for="dakuon-checkbox">Dakuon</label>
+				<div class="option-menu__item">
+					<input
+						type="checkbox"
+						id="dakuon-option"
+						class="option-menu__checkbox"
+					/>
+					<label for="dakuon-option" class="option-menu__label">Dakuon</label>
 				</div>
-				<div>
-					<input type="checkbox" id="seion-checkbox" checked />
-					<label for="seion-checkbox">Standard</label>
+				<div class="option-menu__item">
+					<input
+						type="checkbox"
+						id="seion-option"
+						checked
+						class="option-menu__checkbox"
+					/>
+					<label for="seion-option" class="option-menu__label">Standard</label>
 				</div>
 			</section>
-			<section class="kana-container">
-				<div id="kana-character"></div>
-				<div id="options"></div>
+			<section class="kana-display">
+				<div id="kana-character" class="kana-display__character"></div>
+				<div id="options" class="kana-display__options"></div>
 			</section>
 		</main>
 	</body>
