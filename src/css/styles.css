@@ -69,7 +69,7 @@ header {
 }
 
 #kana-character {
-	font-size: 16em;
+	font-size: min(16em, 48vw);
 	font-weight: 700;
 }
 
