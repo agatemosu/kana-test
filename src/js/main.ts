@@ -103,13 +103,12 @@ function getRandomCharIndex(maxLength: number) {
 }
 
 function getCategoryForKana(kana: string) {
-	if (dakuon.some(([h, k]) => (isHiragana ? h === kana : k === kana))) {
-		return DAKUON;
-	}
-	if (yoon.some(([h, k]) => (isHiragana ? h === kana : k === kana))) {
+	if (kana.length === 2) {
 		return YOON;
 	}
-	return SEION;
+
+	const normalizedKana = kana.normalize("NFD");
+	return normalizedKana.length === 2 ? DAKUON : SEION;
 }
 
 function generateAnswers(correctRomaji: string, kanaArray: KanaArray) {
