@@ -1,3 +1,9 @@
 export const $ = (selector: string) => {
-	return document.querySelector(selector) as HTMLElement;
+	const element = document.querySelector(selector);
+
+	if (!element) {
+		throw new Error(`Element not found: ${selector}`);
+	}
+
+	return element as HTMLElement;
 };
