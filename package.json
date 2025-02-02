@@ -2,9 +2,10 @@
 	"name": "kana-test",
 	"private": true,
 	"author": "agatem",
+	"source": "src/*.html",
 	"scripts": {
-		"build": "parcel build src/*.html --no-source-maps --public-url ./",
-		"start": "parcel src/*.html"
+		"build": "parcel build --no-source-maps --public-url ./",
+		"start": "parcel"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
