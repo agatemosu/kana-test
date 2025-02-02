@@ -13,7 +13,7 @@ let enabledOptions = SEION;
 let previousIndex: number;
 let currentCategory: number;
 
-type KanaArray = [string, string][];
+type KanaPair = { kana: string; romaji: string };
 
 // Elements
 const els = {
@@ -38,14 +38,14 @@ function toggleOption(option: number) {
 	nextCharacter();
 }
 
-function extractKana(kanaSet: KanaEntry[]): KanaArray {
+function extractKana(kanaSet: KanaEntry[]): KanaPair[] {
 	return kanaSet.map(([hiragana, katakana, romaji]) => {
-		return isHiragana ? [hiragana, romaji] : [katakana, romaji];
+		return { kana: isHiragana ? hiragana : katakana, romaji };
 	});
 }
 
 function getKanaArray() {
-	const selectedKana: KanaArray = [];
+	const selectedKana: KanaPair[] = [];
 
 	if (enabledOptions & YOON) selectedKana.push(...extractKana(yoon));
 	if (enabledOptions & DAKUON) selectedKana.push(...extractKana(dakuon));
@@ -111,11 +111,11 @@ function getCategoryForKana(kana: string) {
 	return normalizedKana.length === 2 ? DAKUON : SEION;
 }
 
-function generateAnswers(correctRomaji: string, kanaArray: KanaArray) {
+function generateAnswers(correctRomaji: string, kanaArray: KanaPair[]) {
 	const incorrectAnswers = [correctRomaji];
 	const allRomaji = kanaArray
-		.filter(([kana]) => getCategoryForKana(kana) === currentCategory)
-		.map(([_, romaji]) => romaji);
+		.filter(({ kana }) => getCategoryForKana(kana) === currentCategory)
+		.map(({ romaji }) => romaji);
 
 	while (incorrectAnswers.length < 9) {
 		const randomIndex = Math.floor(Math.random() * allRomaji.length);
@@ -137,15 +137,15 @@ function nextCharacter() {
 	const kanaArray = getKanaArray();
 	const charIndex = getRandomCharIndex(kanaArray.length);
 
-	const [randomCharacter, correctRomaji] = kanaArray[charIndex];
+	const { kana, romaji } = kanaArray[charIndex];
 
-	currentCategory = getCategoryForKana(randomCharacter);
-	const romajiOptions = generateAnswers(correctRomaji, kanaArray);
+	currentCategory = getCategoryForKana(kana);
+	const romajiOptions = generateAnswers(romaji, kanaArray);
 
-	els.kanaCharacter.textContent = randomCharacter;
+	els.kanaCharacter.textContent = kana;
 
 	for (const option of romajiOptions) {
-		const optionElement = createOptionElement(option, correctRomaji);
+		const optionElement = createOptionElement(option, romaji);
 		els.options.appendChild(optionElement);
 	}
 }
