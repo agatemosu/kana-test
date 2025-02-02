@@ -1,0 +1,21 @@
+.navigation {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	height: 100dvh;
+}
+
+.navigation__link {
+	transition: background-color 300ms;
+	border-radius: 100px;
+	padding: 64px 48px;
+	color: #666;
+	font-size: 4em;
+	text-decoration: none;
+
+	&:hover {
+		background-color: #eee;
+	}
+}

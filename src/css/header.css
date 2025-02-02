@@ -1,0 +1,22 @@
+.header {
+	display: flex;
+	position: absolute;
+	left: 1%;
+	flex-wrap: wrap;
+}
+
+.header__item {
+	background-color: #349;
+	padding: 20px;
+	color: #fff;
+	font-weight: 800;
+	font-size: 1.5em;
+	line-height: 20px;
+	letter-spacing: 2px;
+	text-decoration: none;
+	text-transform: uppercase;
+
+	&.main {
+		background-color: #c35;
+	}
+}

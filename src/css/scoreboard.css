@@ -1,0 +1,14 @@
+.scoreboard {
+	display: flex;
+	position: absolute;
+	top: 1%;
+	right: 1%;
+	flex-direction: column;
+	text-align: right;
+}
+
+.scoreboard__count {
+	margin-right: 10%;
+	color: #999;
+	font-size: 3em;
+}

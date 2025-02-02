@@ -1,0 +1,20 @@
+.option-menu {
+	display: flex;
+	position: absolute;
+	top: 50%;
+	right: 0;
+	flex-direction: column;
+	gap: 10px;
+	transform: translateY(-50%);
+	background-color: #222;
+	padding: 10px;
+	color: #ffd43b;
+
+	&.arrow {
+		cursor: pointer;
+	}
+
+	&.hidden {
+		display: none;
+	}
+}
