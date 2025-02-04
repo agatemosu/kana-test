@@ -9,6 +9,6 @@
 
 .scoreboard__count {
 	margin-right: 10%;
-	color: #999;
+	color: light-dark(#999, #666);
 	font-size: 3em;
 }

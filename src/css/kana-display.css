@@ -22,8 +22,9 @@
 .kana-display__option {
 	transition: all 300ms;
 	cursor: pointer;
-	border: 1px solid #ccc;
+	border: 1px solid light-dark(#ccc, #333);
 	border-radius: 5px;
+	background-color: light-dark(#eee, #111);
 	padding: 10px 20px;
 	font-size: 1.5em;
 

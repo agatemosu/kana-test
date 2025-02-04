@@ -4,10 +4,14 @@
 @import "option-menu.css";
 @import "scoreboard.css";
 
+:root {
+	color-scheme: light dark;
+}
+
 body {
 	margin: 0;
-	background-color: #fff;
-	color: #333;
+	background-color: light-dark(#fff, #000);
+	color: light-dark(#333, #ccc);
 	font-family: Arial, Helvetica, sans-serif;
 }
 

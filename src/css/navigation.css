@@ -11,11 +11,11 @@
 	transition: background-color 300ms;
 	border-radius: 100px;
 	padding: 64px 48px;
-	color: #666;
+	color: light-dark(#666, #999);
 	font-size: 4em;
 	text-decoration: none;
 
 	&:hover {
-		background-color: #eee;
+		background-color: light-dark(#eee, #111);
 	}
 }
