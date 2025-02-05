@@ -32,9 +32,9 @@
 		background-color: #3498db;
 		color: #fff;
 	}
+}
 
-	&.incorrect {
-		background-color: #c35;
-		color: #fff;
-	}
+.kana-display__option--incorrect {
+	background-color: #c35;
+	color: #fff;
 }

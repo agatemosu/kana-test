@@ -66,10 +66,11 @@ function handleAnswer(
 	optionElement: Element,
 	correctRomaji: string,
 ) {
-	if (optionElement.classList.contains("incorrect")) return;
+	const incorrectClass = "kana-display__option--incorrect";
+	if (optionElement.classList.contains(incorrectClass)) return;
 
 	if (selectedOption !== correctRomaji) {
-		optionElement.classList.add("incorrect");
+		optionElement.classList.add(incorrectClass);
 		return;
 	}
 

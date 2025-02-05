@@ -15,8 +15,8 @@
 	letter-spacing: 2px;
 	text-decoration: none;
 	text-transform: uppercase;
+}
 
-	&.main {
-		background-color: #c35;
-	}
+.header__item--main {
+	background-color: #c35;
 }

@@ -9,12 +9,12 @@
 	background-color: #222;
 	padding: 10px;
 	color: #ffd43b;
+}
 
-	&.arrow {
-		cursor: pointer;
-	}
+.option-menu--arrow {
+	cursor: pointer;
+}
 
-	&.hidden {
-		display: none;
-	}
+.option-menu--hidden {
+	display: none;
 }
