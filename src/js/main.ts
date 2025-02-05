@@ -20,7 +20,7 @@ const els = {
 	sessionCounter: $("#session-counter"),
 	totalCounter: $("#total-counter"),
 	kanaCharacter: $("#kana-character"),
-	options: $("#options"),
+	kanaOptions: $("#kana-options"),
 	seionOption: $("#seion-option"),
 	dakuonOption: $("#dakuon-option"),
 	yoonOption: $("#yoon-option"),
@@ -131,8 +131,8 @@ function generateAnswers(correctRomaji: string, kanaArray: KanaPair[]) {
 }
 
 function nextCharacter() {
-	while (els.options.childElementCount > 0) {
-		els.options.firstChild?.remove();
+	while (els.kanaOptions.childElementCount > 0) {
+		els.kanaOptions.firstChild?.remove();
 	}
 
 	const kanaArray = getKanaArray();
@@ -147,7 +147,7 @@ function nextCharacter() {
 
 	for (const option of romajiOptions) {
 		const optionElement = createOptionElement(option, romaji);
-		els.options.appendChild(optionElement);
+		els.kanaOptions.appendChild(optionElement);
 	}
 }
 
